@@ -79,11 +79,25 @@ You get a full council deliberation:
 
 ### Claude Code (Recommended)
 
-**Install:**
+**Via Plugin Marketplace (recommended):**
 ```bash
-# Copy the skill file to your Claude skills directory
-cp skill.md ~/.claude/skills/market-sages.md
+/plugin marketplace add hyhmrright/market-sages
+/plugin install market-sages@market-sages-marketplace
 ```
+
+**One-liner install (no clone needed):**
+```bash
+curl -sL https://raw.githubusercontent.com/hyhmrright/market-sages/main/skill.md \
+  -o ~/.claude/skills/market-sages.md
+```
+
+**Manual install:**
+```bash
+git clone https://github.com/hyhmrright/market-sages.git
+cp market-sages/skill.md ~/.claude/skills/market-sages.md
+```
+
+**Verify:** Open a Claude Code session and type `/sages AAPL` — you should see the council spin up.
 
 **Use:**
 ```
@@ -100,10 +114,18 @@ cp skill.md ~/.claude/skills/market-sages.md
 
 ### OpenAI Codex CLI
 
-**Install:**
+Run in your project directory:
+
+**First time (no existing AGENTS.md):**
 ```bash
-cp AGENTS.md /path/to/your/project/AGENTS.md
-# Or reference it in your existing AGENTS.md
+curl -sL https://raw.githubusercontent.com/hyhmrright/market-sages/main/AGENTS.md \
+  -o ./AGENTS.md
+```
+
+**Already have an AGENTS.md? Append instead:**
+```bash
+curl -sL https://raw.githubusercontent.com/hyhmrright/market-sages/main/AGENTS.md \
+  >> ./AGENTS.md
 ```
 
 **Use:**
@@ -118,10 +140,18 @@ codex "Use Michael Burry and Benjamin Graham to evaluate INTC"
 
 ### Google Gemini CLI
 
-**Install:**
+Run in your project directory:
+
+**First time (no existing GEMINI.md):**
 ```bash
-cp GEMINI.md /path/to/your/project/GEMINI.md
-# Or reference it in your existing GEMINI.md
+curl -sL https://raw.githubusercontent.com/hyhmrright/market-sages/main/GEMINI.md \
+  -o ./GEMINI.md
+```
+
+**Already have a GEMINI.md? Append instead:**
+```bash
+curl -sL https://raw.githubusercontent.com/hyhmrright/market-sages/main/GEMINI.md \
+  >> ./GEMINI.md
 ```
 
 **Use:**

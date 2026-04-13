@@ -2,25 +2,39 @@
 
 ## Installation
 
-### Option 1: Global install (use in any project)
+### Option 1: Plugin Marketplace (recommended)
 
 ```bash
-cp skill.md ~/.claude/skills/market-sages.md
+/plugin marketplace add hyhmrright/market-sages
+/plugin install market-sages@market-sages-marketplace
 ```
 
-### Option 2: Project-level install
+### Option 2: One-liner (no clone needed)
 
 ```bash
-cp skill.md /your/project/.claude/skills/market-sages.md
+# Global install (available in all sessions)
+curl -sL https://raw.githubusercontent.com/hyhmrright/market-sages/main/skill.md \
+  -o ~/.claude/skills/market-sages.md
+
+# Project-level install (replace ~/.claude/ with .claude/)
+curl -sL https://raw.githubusercontent.com/hyhmrright/market-sages/main/skill.md \
+  -o .claude/skills/market-sages.md
 ```
 
-### Option 3: Reference from CLAUDE.md
+### Option 3: Manual install
 
-Add to your project's `CLAUDE.md`:
-```markdown
-# Skills
-Use the Market Sages framework from `skill.md` when the user asks to analyze a stock or investment.
+```bash
+git clone https://github.com/hyhmrright/market-sages.git
+cp market-sages/skill.md ~/.claude/skills/market-sages.md
 ```
+
+### Verify
+
+Open a Claude Code session in any directory and type:
+```
+/sages AAPL
+```
+The council should spin up immediately.
 
 ---
 

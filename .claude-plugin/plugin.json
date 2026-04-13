@@ -1,0 +1,20 @@
+{
+  "name": "market-sages",
+  "description": "Summon 13 legendary investors — Buffett, Munger, Graham, Burry, Taleb, and 8 more — to analyze any stock with a single command. No API keys. No setup.",
+  "version": "1.0.0",
+  "author": {
+    "name": "hyhmrright",
+    "email": "hyhmrright@gmail.com"
+  },
+  "homepage": "https://github.com/hyhmrright/market-sages",
+  "repository": "https://github.com/hyhmrright/market-sages",
+  "license": "MIT",
+  "keywords": [
+    "investing",
+    "finance",
+    "stock-analysis",
+    "warren-buffett",
+    "ai",
+    "market-analysis"
+  ]
+}

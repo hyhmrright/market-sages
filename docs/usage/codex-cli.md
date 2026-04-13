@@ -4,22 +4,37 @@
 
 ## Installation
 
-### Option 1: Project-level (recommended)
+Run in your project directory:
+
+### First time (no existing AGENTS.md)
 
 ```bash
-# In your project directory
-cp /path/to/market-sages/AGENTS.md ./AGENTS.md
+curl -sL https://raw.githubusercontent.com/hyhmrright/market-sages/main/AGENTS.md \
+  -o ./AGENTS.md
 ```
 
-If you already have an `AGENTS.md`, append the Market Sages section:
+### Already have an AGENTS.md
 
 ```bash
+curl -sL https://raw.githubusercontent.com/hyhmrright/market-sages/main/AGENTS.md \
+  >> ./AGENTS.md
+```
+
+This appends Market Sages to your existing file — no conflict.
+
+### Manual install (if you've already cloned the repo)
+
+```bash
+cp /path/to/market-sages/AGENTS.md ./AGENTS.md
+# or append:
 cat /path/to/market-sages/AGENTS.md >> ./AGENTS.md
 ```
 
-### Option 2: Global (applies to all Codex sessions)
+### Verify
 
-Check Codex CLI docs for the global instructions file location, then append `AGENTS.md` contents there.
+```bash
+codex "List the 13 Market Sages and their core philosophy"
+```
 
 ---
 

@@ -4,17 +4,36 @@
 
 ## Installation
 
-### Option 1: Project-level (recommended)
+Run in your project directory:
+
+### First time (no existing GEMINI.md)
 
 ```bash
-# In your project directory
-cp /path/to/market-sages/GEMINI.md ./GEMINI.md
+curl -sL https://raw.githubusercontent.com/hyhmrright/market-sages/main/GEMINI.md \
+  -o ./GEMINI.md
 ```
 
-If you already have a `GEMINI.md`, append the Market Sages section:
+### Already have a GEMINI.md
 
 ```bash
+curl -sL https://raw.githubusercontent.com/hyhmrright/market-sages/main/GEMINI.md \
+  >> ./GEMINI.md
+```
+
+This appends Market Sages to your existing file — no conflict.
+
+### Manual install (if you've already cloned the repo)
+
+```bash
+cp /path/to/market-sages/GEMINI.md ./GEMINI.md
+# or append:
 cat /path/to/market-sages/GEMINI.md >> ./GEMINI.md
+```
+
+### Verify
+
+```bash
+gemini "List the 13 Market Sages and their core philosophy"
 ```
 
 ---
