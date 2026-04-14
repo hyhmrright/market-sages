@@ -1,0 +1,33 @@
+# Filter test: --value flag returns correct sage subset
+# Validates that value-focused filter includes exactly the right sages
+# and excludes growth/macro sages.
+
+id: value_filter
+description: >
+  --value flag should consult only: Buffett, Munger, Graham, Pabrai, Burry.
+  Growth sages (Wood, Lynch, Druckenmiller, Fisher) must not appear.
+
+user_message: "/sages TSLA --value"
+
+assertions:
+  - type: contains_text
+    value: "Warren Buffett"
+  - type: contains_text
+    value: "Charlie Munger"
+  - type: contains_text
+    value: "Benjamin Graham"
+  - type: contains_text
+    value: "Mohnish Pabrai"
+  - type: contains_text
+    value: "Michael Burry"
+
+  # Growth sages must be excluded
+  - type: not_contains_text
+    value: "Cathie Wood"
+    description: "Wood is a growth sage, must be excluded from --value"
+  - type: not_contains_text
+    value: "Peter Lynch"
+    description: "Lynch is a growth sage, must be excluded from --value"
+  - type: not_contains_text
+    value: "Stanley Druckenmiller"
+    description: "Druckenmiller is a growth/macro sage, must be excluded from --value"

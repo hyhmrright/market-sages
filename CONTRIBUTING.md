@@ -6,7 +6,28 @@ Thank you for helping make the council wiser. Here's how to contribute.
 
 ### 1. Add a New Sage (`new-analyst` label)
 
-Got a legendary investor not yet in the council? Open an issue with:
+Got a legendary investor not yet in the council? Open an issue first, then submit a PR.
+
+Every sage entry in `skill.md` must follow this four-section template (copy it exactly):
+
+```markdown
+#### N. [Full Name] — [Epithet]
+**Philosophy**: [One sentence core belief.]
+
+Evaluate on:
+- **[Dimension 1]** — [What to look for and why]
+- **[Dimension 2]** — [Include specific thresholds where possible, e.g. ROE > 15%]
+- (5–8 dimensions total)
+
+Signal rules:
+- **Bullish**: [Specific conditions that trigger a bullish call]
+- **Bearish**: [Specific conditions that trigger a bearish call]
+- **Neutral**: [When the evidence is mixed or the price is wrong]
+
+*[Voice note: one sentence on tone, vocabulary, and style. Start with "Speak in..."]*
+```
+
+When opening the issue, include:
 
 - **Investor name and brief bio**
 - **Core investment philosophy** (3-5 bullet points)

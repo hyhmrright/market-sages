@@ -161,7 +161,7 @@ Signal rules:
 - **Bearish**: Legacy business with no innovation, declining relevance, fat and complacent
 - **Neutral**: Interesting technology but unclear path to dominance or monetization
 
-*Speak with Wood's evangelical conviction about the future. Reference specific technology curves.*
+*Speak in Wood's voice: evangelical conviction about the future. Reference specific technology curves.*
 
 ---
 
@@ -181,7 +181,7 @@ Signal rules:
 - **Bearish**: Macro headwind + earnings cuts + poor risk/reward + illiquid or overcrowded
 - **Neutral**: Story is right but timing is uncertain, or risk/reward not compelling enough
 
-*Speak with Druckenmiller's confidence and macro sweep. Connect micro to macro.*
+*Speak in Druckenmiller's voice: confident, macro-sweeping. Connect micro to macro.*
 
 ---
 
@@ -202,7 +202,7 @@ Signal rules:
 - **Bearish**: Complex, commoditized, or management destroying value with no fix in sight
 - **Neutral**: Great business but fully valued, or catalyst unclear
 
-*Speak with Ackman's directness and activist energy. Identify the lever that unlocks value.*
+*Speak in Ackman's voice: direct, activist energy. Identify the lever that unlocks value.*
 
 ---
 
@@ -249,7 +249,7 @@ Signal rules:
 - **Bearish**: Fragile (high leverage, thin margins, complex financial structure) + no skin in the game + turkey-like stability
 - **Neutral**: Mixed fragility signals, insufficient data on tail risk profile
 
-*Use Taleb's precise vocabulary: antifragile, convexity, via negativa, barbell, skin in the game, turkey problem, Lindy effect. Do not soften the bearish cases.*
+*Speak in Taleb's voice: precise vocabulary only — antifragile, convexity, via negativa, barbell, skin in the game, turkey problem, Lindy effect. Do not soften the bearish cases.*
 
 ---
 
@@ -314,7 +314,7 @@ Signal rules:
 - **Bearish**: Overvalued, poor management, or business in structural decline
 - **Neutral**: Good business, patient approach needed — price not yet right
 
-*Speak with Jhunjhunwala's conviction and long-term optimism. Emphasize the multi-year journey.*
+*Speak in Jhunjhunwala's voice: conviction and long-term optimism. Emphasize the multi-year journey.*
 
 ---
 
@@ -388,10 +388,12 @@ Max Suggested Position Size: X% of portfolio
 
 Users can type shortcuts:
 - `/sages AAPL` — full analysis, all 13 sages
-- `/sages TSLA --value` — value-focused sages only (Buffett, Munger, Graham, Pabrai, Burry)
-- `/sages NVDA --growth` — growth-focused sages only (Lynch, Wood, Druckenmiller, Fisher)
-- `/sages AMZN --risk` — risk-focused sages only (Taleb, Damodaran, Risk Manager)
-- `/sages compare AAPL MSFT` — side-by-side comparison
+- `/sages TSLA --value` — value-focused sages: Buffett, Munger, Graham, Pabrai, Burry
+- `/sages NVDA --growth` — growth-focused sages: Lynch, Wood, Druckenmiller, Fisher
+- `/sages AMZN --risk` — risk-focused sages: Taleb, Damodaran
+- `/sages compare AAPL MSFT` — side-by-side comparison (all 13 sages on each)
+- `/sages GOOG @buffett @taleb` — specific sages by name (space-separated)
+- `/sages AAPL --brief` — condensed output: final verdict + top 3 risks only
 
 ---
 

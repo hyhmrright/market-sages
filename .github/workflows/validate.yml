@@ -1,0 +1,21 @@
+name: Validate skill.md Structure
+
+on:
+  push:
+    paths:
+      - "skill.md"
+      - "tests/validate_structure.py"
+  pull_request:
+    paths:
+      - "skill.md"
+      - "tests/validate_structure.py"
+
+jobs:
+  validate:
+    name: Structure check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate skill.md structure
+        run: python3 tests/validate_structure.py --verbose

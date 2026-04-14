@@ -1,0 +1,35 @@
+# Filter test: --growth flag returns correct sage subset
+# Validates growth-focused sages appear and value sages are excluded.
+
+id: growth_filter
+description: >
+  --growth flag should consult: Lynch, Wood, Druckenmiller, Fisher.
+  Value sages (Buffett, Munger, Graham, Pabrai, Burry) must not appear.
+
+user_message: "/sages NVDA --growth"
+
+assertions:
+  - type: contains_text
+    value: "Peter Lynch"
+  - type: contains_text
+    value: "Cathie Wood"
+  - type: contains_text
+    value: "Stanley Druckenmiller"
+  - type: contains_text
+    value: "Phil Fisher"
+
+  # Value sages must be excluded
+  - type: not_contains_text
+    value: "Warren Buffett"
+    description: "Buffett is a value sage, must be excluded from --growth"
+  - type: not_contains_text
+    value: "Benjamin Graham"
+    description: "Graham is a value sage, must be excluded from --growth"
+  - type: not_contains_text
+    value: "Michael Burry"
+    description: "Burry is a value sage, must be excluded from --growth"
+
+  - type: contains_text
+    value: "Portfolio Manager"
+  - type: contains_text
+    value: "DISCLAIMER"

@@ -1,0 +1,34 @@
+# Filter test: --risk flag returns correct sage subset
+# Validates risk-focused sages appear and non-risk sages are excluded.
+
+id: risk_filter
+description: >
+  --risk flag should consult: Taleb, Damodaran.
+  All other sages must not appear.
+
+user_message: "/sages AAPL --risk"
+
+assertions:
+  - type: contains_text
+    value: "Nassim Taleb"
+  - type: contains_text
+    value: "Aswath Damodaran"
+
+  # All other sages must be excluded
+  - type: not_contains_text
+    value: "Warren Buffett"
+    description: "Buffett must be excluded from --risk"
+  - type: not_contains_text
+    value: "Cathie Wood"
+    description: "Wood must be excluded from --risk"
+  - type: not_contains_text
+    value: "Peter Lynch"
+    description: "Lynch must be excluded from --risk"
+  - type: not_contains_text
+    value: "Michael Burry"
+    description: "Burry must be excluded from --risk"
+
+  - type: contains_text
+    value: "Portfolio Manager"
+  - type: contains_text
+    value: "DISCLAIMER"

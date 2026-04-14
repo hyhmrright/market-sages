@@ -57,12 +57,14 @@ Give me Buffett and Munger's take on Microsoft
 
 ## Command Reference
 
+Common patterns (full command list is defined in `skill.md` → QUICK COMMANDS):
+
 | Command | What it does |
 |---------|--------------|
 | `/sages AAPL` | Full council — all 13 sages |
-| `/sages TSLA --value` | Value sages: Buffett, Munger, Graham, Pabrai, Burry |
-| `/sages NVDA --growth` | Growth sages: Lynch, Wood, Druckenmiller, Fisher |
-| `/sages AMZN --risk` | Risk sages: Taleb, Damodaran |
+| `/sages TSLA --value` | Value-focused sages only |
+| `/sages AMZN --risk` | Risk-focused sages only |
+| `/sages AAPL --brief` | Condensed: final verdict + top 3 risks |
 | `/sages compare AAPL MSFT` | Side-by-side council comparison |
 | `/sages GOOG @buffett @taleb` | Specific sages by name |
 

@@ -1,0 +1,4 @@
+anthropic>=0.40.0
+pyyaml>=6.0
+# Minimum Python version: 3.10 (uses str | None union syntax and built-in generics)
+

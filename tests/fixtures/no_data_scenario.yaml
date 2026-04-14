@@ -1,0 +1,25 @@
+# Sad-path test: no financial data provided
+# Validates graceful degradation when user provides only a ticker.
+
+id: no_data_scenario
+description: >
+  User provides only a ticker symbol with no financial data.
+  Skill must label analysis as potentially stale and still produce all outputs.
+
+user_message: "/sages AAPL"
+
+assertions:
+  - type: contains_text
+    value: "potentially stale"
+    description: "No-data runs must warn about training knowledge cutoff"
+  - type: contains_text
+    value: "Portfolio Manager"
+    description: "Final verdict must still appear even without data"
+  - type: contains_text
+    value: "DISCLAIMER"
+  - type: contains_text
+    value: "Warren Buffett"
+    description: "All 13 sages must appear (default to all)"
+  - type: contains_text
+    value: "Rakesh Jhunjhunwala"
+    description: "Last sage must appear, confirming full council was consulted"

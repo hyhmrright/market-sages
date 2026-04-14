@@ -1,0 +1,70 @@
+# Golden test: NVDA with full financial data
+# Uses directional (forbidden_signal) assertions to tolerate LLM non-determinism.
+# A forbidden_signal assertion passes for any signal except the one listed.
+#
+# Source: based on examples/nvidia-analysis.md (Q3 2024 data)
+# Run: python3 tests/run_evals.py
+
+id: nvda_full_data
+description: >
+  NVDA with strong FCF but elevated valuation (P/E 55x, EV/EBIT 42x).
+  Value sages must not be BULLISH; growth sages must not be BEARISH.
+
+user_message: |
+  Analyze Nvidia (NVDA). Consult all 13 sages.
+
+  Data: Revenue $60.9B TTM, Data Center $47.5B (+217% YoY), FCF $27B,
+  P/E 55x, EV/EBIT 42x, Gross Margin 74.6%, Net Income $29.8B
+
+assertions:
+  # Value sages: P/E 55x and EV/EBIT 42x rule out a BULLISH call
+  - sage: "Warren Buffett"
+    forbidden_signal: BULLISH
+    rationale: "P/E 55x leaves no margin of safety; Buffett cannot be BULLISH"
+
+  - sage: "Benjamin Graham"
+    forbidden_signal: BULLISH
+    rationale: "P/E 55x >> 15 threshold and EV/EBIT 42x >> 8 threshold; Graham cannot be BULLISH"
+
+  - sage: "Michael Burry"
+    forbidden_signal: BULLISH
+    rationale: "FCF yield ~1.8% << 10% and EV/EBIT 42x >> 8; Burry cannot be BULLISH"
+
+  - sage: "Mohnish Pabrai"
+    forbidden_signal: BULLISH
+    rationale: "P/E 55x provides no 50% margin of safety; Pabrai cannot be BULLISH"
+
+  # Growth/macro sages: AI disruption + platform effects rule out a BEARISH call
+  - sage: "Cathie Wood"
+    forbidden_signal: BEARISH
+    rationale: "Clear AI disruption vector, CUDA platform effects, TAM expansion"
+
+  - sage: "Stanley Druckenmiller"
+    forbidden_signal: BEARISH
+    rationale: "AI macro tailwind + strong earnings momentum; asymmetric payoff present"
+
+  # Quant sage: story and numbers must align directionally
+  - sage: "Aswath Damodaran"
+    forbidden_signal: BULLISH
+    rationale: "At P/E 55x and EV/EBIT 42x, DCF requires heroic growth assumptions"
+
+  # Tail risk sage: high leverage to AI cycle = fragility signal
+  - sage: "Nassim Taleb"
+    forbidden_signal: BULLISH
+    rationale: "Concentration in single AI chip cycle is a fragility, not antifragility"
+
+  # Long-term value sage: ROCE check
+  - sage: "Rakesh Jhunjhunwala"
+    forbidden_signal: BEARISH
+    rationale: "74.6% gross margin and data center dominance support long-term conviction"
+
+  # Output format checks (all runs)
+  - type: contains_text
+    value: "Portfolio Manager"
+    description: "Final verdict section must always appear"
+  - type: contains_text
+    value: "DISCLAIMER"
+    description: "Disclaimer must always appear"
+  - type: contains_text
+    value: "potentially stale"
+    description: "Data-based analysis must label knowledge cutoff"

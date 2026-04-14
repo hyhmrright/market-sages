@@ -1,0 +1,43 @@
+# Filter test: @sage syntax selects specific sages by name
+# Validates named sage selection works and non-named sages are excluded.
+# Also covers Phil Fisher and Charlie Munger (previously uncovered sages).
+
+id: named_sages
+description: >
+  @buffett @munger @fisher syntax should consult exactly those 3 sages.
+  All other sages must not appear.
+
+user_message: "/sages MSFT @buffett @munger @fisher"
+
+assertions:
+  - type: contains_text
+    value: "Warren Buffett"
+  - type: contains_text
+    value: "Charlie Munger"
+  - type: contains_text
+    value: "Phil Fisher"
+
+  # Other sages must be excluded
+  - type: not_contains_text
+    value: "Michael Burry"
+    description: "Burry not named, must be excluded"
+  - type: not_contains_text
+    value: "Cathie Wood"
+    description: "Wood not named, must be excluded"
+  - type: not_contains_text
+    value: "Nassim Taleb"
+    description: "Taleb not named, must be excluded"
+
+  # Directional checks for the 3 sages on MSFT (strong business, reasonable valuation)
+  - sage: "Charlie Munger"
+    forbidden_signal: BEARISH
+    rationale: "MSFT has durable moat, expanding margins, ROIC >15%; Munger cannot be BEARISH"
+
+  - sage: "Phil Fisher"
+    forbidden_signal: BEARISH
+    rationale: "MSFT's R&D, cloud growth, and management quality satisfy Fisher's 15 questions"
+
+  - type: contains_text
+    value: "Portfolio Manager"
+  - type: contains_text
+    value: "DISCLAIMER"

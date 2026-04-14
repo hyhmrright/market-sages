@@ -18,10 +18,10 @@ cp skill.md ~/.claude/skills/market-sages.md
 ## 项目结构
 
 ```
-skill.md                          # Claude Code curl 安装版本
-skills/market-sages/SKILL.md     # Plugin/Extension 安装版本（内容与 skill.md 相同）
-AGENTS.md                         # Codex CLI 集成版本
-GEMINI.md                         # Gemini CLI 集成版本
+skill.md                          # 唯一 source of truth（所有平台共用此文件）
+skills/market-sages/SKILL.md     # 符号链接 → skill.md（plugin 系统要求此路径）
+AGENTS.md                         # Codex CLI 集成版本（格式规范 + 调用示例）
+GEMINI.md                         # Gemini CLI 集成版本（格式规范 + 调用示例）
 .claude-plugin/                   # Claude Code plugin marketplace 元数据
 .codex-plugin/                    # Codex CLI 技能安装器元数据
 gemini-extension.json             # Gemini CLI /extensions install 清单
@@ -33,14 +33,30 @@ examples/                         # 示例分析输出（nvidia, apple）
 
 ## 开发规范
 
-- **改动 skill.md**：修改任何 sage 框架后，验证 signal rules 逻辑在所有 sage 间保持一致
-- **添加新 sage**：按现有格式，包含 Philosophy、评估维度、Signal rules、声音风格四部分
+- **改动 skill.md**：只需修改 `skill.md`，`skills/market-sages/SKILL.md` 是符号链接，自动同步
+- **添加新 sage**：按现有格式，包含 Philosophy、评估维度、Signal rules、声音风格四部分；**不需要**同步更新 AGENTS.md / GEMINI.md 中的量化阈值（已移除）
 - **i18n 文档**：`docs/i18n/` 下的翻译需与 `README.md` 同步更新
 - **examples/**：示例输出文件仅作展示，不需要与 skill.md 保持实时同步
 
+## 测试
+
+```bash
+# 结构校验（零依赖，任何时候都可运行）
+python3 tests/validate_structure.py
+
+# Prompt 评估（需要 ANTHROPIC_API_KEY）
+pip install -r tests/requirements.txt
+export ANTHROPIC_API_KEY=sk-...
+python3 tests/run_evals.py              # 全部 fixture
+python3 tests/run_evals.py nvda_full_data  # 单个 fixture
+python3 tests/run_evals.py --dry-run   # 不调用 API，仅打印提示词
+```
+
+CI 在每次修改 `skill.md` 时自动运行结构校验（`.github/workflows/validate.yml`）。
+
 ## 注意事项
 
-- 这不是软件项目，`git commit` 前无需运行测试或构建
+- `git commit` 前至少运行一次 `python3 tests/validate_structure.py`
 - `skill.md` 顶部的 YAML frontmatter（name/version/author/tags）用于 Claude plugin registry，修改格式会导致发布失败
-- **`skill.md` 与 `skills/market-sages/SKILL.md` 内容必须保持同步**——修改 sage 框架后两个文件都要更新
+- `skills/market-sages/SKILL.md` 是指向 `../../skill.md` 的符号链接，**不要直接编辑**
 - `CONTRIBUTING.md` 中定义了新 sage 的 issue label（`new-analyst`），添加 sage 前先开 issue

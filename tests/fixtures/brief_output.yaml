@@ -1,0 +1,28 @@
+# Output format test: --brief produces condensed output
+# Validates that --brief mode includes final verdict and top risks
+# but omits individual sage verdict cards.
+
+id: brief_output
+description: >
+  --brief must produce condensed output: Portfolio Manager verdict + top 3 risks.
+  Individual sage verdict cards should not appear (no "Confidence: XX%").
+
+user_message: "/sages AAPL --brief"
+
+assertions:
+  - type: contains_text
+    value: "Portfolio Manager"
+    description: "--brief must still include the final Portfolio Manager verdict"
+  - type: contains_text
+    value: "DISCLAIMER"
+    description: "--brief must still include the disclaimer"
+
+  # Brief mode should not render individual sage cards
+  - type: not_contains_text
+    value: "Confidence: "
+    description: "Individual sage verdict cards (with Confidence: XX%) should be omitted in --brief"
+
+  # Brief mode should surface key risks
+  - type: contains_text
+    value: "Risk"
+    description: "--brief should include key risks section"
