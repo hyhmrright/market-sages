@@ -114,15 +114,25 @@ cp market-sages/skill.md ~/.claude/skills/market-sages.md
 
 ### OpenAI Codex CLI
 
-Run in your project directory:
+**Via Skill Installer (in a Codex session):**
+```
+Install the market-sages skill from hyhmrright/market-sages
+```
 
-**First time (no existing AGENTS.md):**
+**Command line:**
+```bash
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo hyhmrright/market-sages --path skills --name market-sages
+```
+
+**Manual (project-level AGENTS.md):**
+
+First time:
 ```bash
 curl -sL https://raw.githubusercontent.com/hyhmrright/market-sages/main/AGENTS.md \
   -o ./AGENTS.md
 ```
-
-**Already have an AGENTS.md? Append instead:**
+Already have an AGENTS.md? Append instead:
 ```bash
 curl -sL https://raw.githubusercontent.com/hyhmrright/market-sages/main/AGENTS.md \
   >> ./AGENTS.md
@@ -140,15 +150,19 @@ codex "Use Michael Burry and Benjamin Graham to evaluate INTC"
 
 ### Google Gemini CLI
 
-Run in your project directory:
+**Via Extension (in a Gemini session):**
+```
+/extensions install https://github.com/hyhmrright/market-sages
+```
 
-**First time (no existing GEMINI.md):**
+**Manual (project-level GEMINI.md):**
+
+First time:
 ```bash
 curl -sL https://raw.githubusercontent.com/hyhmrright/market-sages/main/GEMINI.md \
   -o ./GEMINI.md
 ```
-
-**Already have a GEMINI.md? Append instead:**
+Already have a GEMINI.md? Append instead:
 ```bash
 curl -sL https://raw.githubusercontent.com/hyhmrright/market-sages/main/GEMINI.md \
   >> ./GEMINI.md

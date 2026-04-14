@@ -18,12 +18,17 @@ cp skill.md ~/.claude/skills/market-sages.md
 ## 项目结构
 
 ```
-skill.md        # 核心文件 — 13 位投资大师的 prompt 框架（唯一需要维护的核心内容）
-AGENTS.md       # Codex CLI 集成版本
-GEMINI.md       # Gemini CLI 集成版本
-docs/usage/     # 各平台使用指南
-docs/i18n/      # 多语言 README（zh-CN, ja, ko）
-examples/       # 示例分析输出（nvidia, apple）
+skill.md                          # Claude Code curl 安装版本
+skills/market-sages/SKILL.md     # Plugin/Extension 安装版本（内容与 skill.md 相同）
+AGENTS.md                         # Codex CLI 集成版本
+GEMINI.md                         # Gemini CLI 集成版本
+.claude-plugin/                   # Claude Code plugin marketplace 元数据
+.codex-plugin/                    # Codex CLI 技能安装器元数据
+gemini-extension.json             # Gemini CLI /extensions install 清单
+commands/sages.md                 # /sages 斜杠命令包装器
+docs/usage/                       # 各平台使用指南
+docs/i18n/                        # 多语言 README（zh-CN, ja, ko）
+examples/                         # 示例分析输出（nvidia, apple）
 ```
 
 ## 开发规范
@@ -37,4 +42,5 @@ examples/       # 示例分析输出（nvidia, apple）
 
 - 这不是软件项目，`git commit` 前无需运行测试或构建
 - `skill.md` 顶部的 YAML frontmatter（name/version/author/tags）用于 Claude plugin registry，修改格式会导致发布失败
+- **`skill.md` 与 `skills/market-sages/SKILL.md` 内容必须保持同步**——修改 sage 框架后两个文件都要更新
 - `CONTRIBUTING.md` 中定义了新 sage 的 issue label（`new-analyst`），添加 sage 前先开 issue

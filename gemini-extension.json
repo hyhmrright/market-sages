@@ -1,0 +1,29 @@
+{
+  "name": "market-sages",
+  "version": "1.0.0",
+  "description": "Summon 13 legendary investors — Buffett, Munger, Graham, Burry, Taleb, and 8 more — to analyze any stock with a single command. No API keys. No setup.",
+  "author": "hyhmrright",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hyhmrright/market-sages.git"
+  },
+  "engines": {
+    "gemini": ">=0.30.0"
+  },
+  "contribution": {
+    "skills": [
+      {
+        "id": "market-sages",
+        "path": "skills/market-sages"
+      }
+    ],
+    "commands": [
+      {
+        "id": "sages",
+        "description": "Summon the Market Sages council to analyze a stock (e.g. /sages AAPL)",
+        "path": "commands/sages.md"
+      }
+    ]
+  }
+}

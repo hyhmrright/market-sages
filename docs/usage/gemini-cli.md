@@ -4,25 +4,32 @@
 
 ## Installation
 
+### Option 1: Extension (recommended, global install)
+
+In any Gemini CLI session:
+```
+/extensions install https://github.com/hyhmrright/market-sages
+```
+
+Once installed, the `/sages` command is available globally in all Gemini sessions.
+
+### Option 2: Project-level GEMINI.md
+
 Run in your project directory:
 
-### First time (no existing GEMINI.md)
-
+First time (no existing GEMINI.md):
 ```bash
 curl -sL https://raw.githubusercontent.com/hyhmrright/market-sages/main/GEMINI.md \
   -o ./GEMINI.md
 ```
 
-### Already have a GEMINI.md
-
+Already have a GEMINI.md? Append instead:
 ```bash
 curl -sL https://raw.githubusercontent.com/hyhmrright/market-sages/main/GEMINI.md \
   >> ./GEMINI.md
 ```
 
-This appends Market Sages to your existing file — no conflict.
-
-### Manual install (if you've already cloned the repo)
+### Option 3: Manual install
 
 ```bash
 cp /path/to/market-sages/GEMINI.md ./GEMINI.md

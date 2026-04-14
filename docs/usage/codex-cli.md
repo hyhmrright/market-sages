@@ -4,30 +4,41 @@
 
 ## Installation
 
+### Option 1: Skill Installer (recommended, global install)
+
+In any Codex session (natural language):
+```
+Install the market-sages skill from hyhmrright/market-sages
+```
+
+Or via command line:
+```bash
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo hyhmrright/market-sages --path skills --name market-sages
+```
+
+### Option 2: Project-level AGENTS.md
+
 Run in your project directory:
 
-### First time (no existing AGENTS.md)
-
+First time (no existing AGENTS.md):
 ```bash
 curl -sL https://raw.githubusercontent.com/hyhmrright/market-sages/main/AGENTS.md \
   -o ./AGENTS.md
 ```
 
-### Already have an AGENTS.md
-
+Already have an AGENTS.md? Append instead:
 ```bash
 curl -sL https://raw.githubusercontent.com/hyhmrright/market-sages/main/AGENTS.md \
   >> ./AGENTS.md
 ```
 
-This appends Market Sages to your existing file — no conflict.
-
-### Manual install (if you've already cloned the repo)
+### Option 3: Manual install
 
 ```bash
-cp /path/to/market-sages/AGENTS.md ./AGENTS.md
-# or append:
-cat /path/to/market-sages/AGENTS.md >> ./AGENTS.md
+git clone https://github.com/hyhmrright/market-sages.git /tmp/market-sages
+mkdir -p ~/.codex/skills/market-sages
+cp -r /tmp/market-sages/skills/* ~/.codex/skills/market-sages/
 ```
 
 ### Verify
