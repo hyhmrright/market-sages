@@ -45,11 +45,11 @@ examples/                         # 示例分析输出（nvidia, apple）
 python3 tests/validate_structure.py
 
 # Prompt 评估（需要 ANTHROPIC_API_KEY）
-pip install -r tests/requirements.txt
+python3 -m venv /tmp/ms-eval-venv && /tmp/ms-eval-venv/bin/pip install -r tests/requirements.txt
 export ANTHROPIC_API_KEY=sk-...
-python3 tests/run_evals.py              # 全部 fixture
-python3 tests/run_evals.py nvda_full_data  # 单个 fixture
-python3 tests/run_evals.py --dry-run   # 不调用 API，仅打印提示词
+/tmp/ms-eval-venv/bin/python tests/run_evals.py              # 全部 fixture
+/tmp/ms-eval-venv/bin/python tests/run_evals.py nvda_full_data  # 单个 fixture
+/tmp/ms-eval-venv/bin/python tests/run_evals.py --dry-run   # 不调用 API，仅打印提示词
 ```
 
 CI 在每次修改 `skill.md` 时自动运行结构校验（`.github/workflows/validate.yml`）。
@@ -60,3 +60,5 @@ CI 在每次修改 `skill.md` 时自动运行结构校验（`.github/workflows/v
 - `skill.md` 顶部的 YAML frontmatter（name/version/author/tags）用于 Claude plugin registry，修改格式会导致发布失败
 - `skills/market-sages/SKILL.md` 是指向 `../../skill.md` 的符号链接，**不要直接编辑**
 - `CONTRIBUTING.md` 中定义了新 sage 的 issue label（`new-analyst`），添加 sage 前先开 issue
+- 发版前手动更新 `skill.md` 中的 `version` 字段，并与 git tag 保持一致（`v0.x.0` 格式）
+- `tests/utils.py` 是两个测试脚本共用的 frontmatter 解析器，勿删
