@@ -45,11 +45,10 @@ examples/                         # 示例分析输出（nvidia, apple）
 python3 tests/validate_structure.py
 
 # Prompt 评估（需要 ANTHROPIC_API_KEY）
-python3 -m venv /tmp/ms-eval-venv && /tmp/ms-eval-venv/bin/pip install -r tests/requirements.txt
 export ANTHROPIC_API_KEY=sk-...
-/tmp/ms-eval-venv/bin/python tests/run_evals.py              # 全部 fixture
-/tmp/ms-eval-venv/bin/python tests/run_evals.py nvda_full_data  # 单个 fixture
-/tmp/ms-eval-venv/bin/python tests/run_evals.py --dry-run   # 不调用 API，仅打印提示词
+uv run --with-requirements tests/requirements.txt tests/run_evals.py              # 全部 fixture
+uv run --with-requirements tests/requirements.txt tests/run_evals.py nvda_full_data  # 单个 fixture
+uv run --with-requirements tests/requirements.txt tests/run_evals.py --dry-run   # 不调用 API，仅打印提示词
 ```
 
 CI 在每次修改 `skill.md` 时自动运行结构校验（`.github/workflows/validate.yml`）。
