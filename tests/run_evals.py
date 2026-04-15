@@ -5,13 +5,13 @@ Loads YAML fixtures, invokes Claude API with skill.md as system prompt,
 and checks assertions against the response.
 
 Requirements:
-    pip install anthropic pyyaml   (Python 3.10+)
+    uv (deps resolved automatically from tests/requirements.txt)
 
 Usage:
     export ANTHROPIC_API_KEY=sk-...
-    python3 tests/run_evals.py                     # run all fixtures
-    python3 tests/run_evals.py nvda_full_data      # run one fixture by id
-    python3 tests/run_evals.py --dry-run           # print prompts, skip API calls
+    uv run --with-requirements tests/requirements.txt tests/run_evals.py
+    uv run --with-requirements tests/requirements.txt tests/run_evals.py nvda_full_data
+    uv run --with-requirements tests/requirements.txt tests/run_evals.py --dry-run
 """
 import argparse
 import re
@@ -27,7 +27,7 @@ try:
     import anthropic
     import yaml
 except ImportError:
-    sys.exit("Missing dependencies. Run: pip install anthropic pyyaml")
+    sys.exit("Missing dependencies. Run: uv run --with-requirements tests/requirements.txt tests/run_evals.py")
 
 from utils import parse_frontmatter
 

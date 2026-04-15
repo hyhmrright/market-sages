@@ -4,8 +4,8 @@ Structural validator for skill.md — no API key required.
 Verifies frontmatter, sage count, required sections, and QUICK COMMANDS completeness.
 
 Usage:
-    python3 tests/validate_structure.py
-    python3 tests/validate_structure.py --verbose
+    uv run tests/validate_structure.py
+    uv run tests/validate_structure.py --verbose
 """
 import re
 import sys

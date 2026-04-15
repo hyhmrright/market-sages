@@ -42,7 +42,7 @@ examples/                         # 示例分析输出（nvidia, apple）
 
 ```bash
 # 结构校验（零依赖，任何时候都可运行）
-python3 tests/validate_structure.py
+uv run tests/validate_structure.py
 
 # Prompt 评估（需要 ANTHROPIC_API_KEY）
 export ANTHROPIC_API_KEY=sk-...
@@ -55,7 +55,7 @@ CI 在每次修改 `skill.md` 时自动运行结构校验（`.github/workflows/v
 
 ## 注意事项
 
-- `git commit` 前至少运行一次 `python3 tests/validate_structure.py`
+- `git commit` 前至少运行一次 `uv run tests/validate_structure.py`
 - `skill.md` 顶部的 YAML frontmatter（name/version/author/tags）用于 Claude plugin registry，修改格式会导致发布失败
 - `skills/market-sages/SKILL.md` 是指向 `../../skill.md` 的符号链接，**不要直接编辑**
 - `CONTRIBUTING.md` 中定义了新 sage 的 issue label（`new-analyst`），添加 sage 前先开 issue

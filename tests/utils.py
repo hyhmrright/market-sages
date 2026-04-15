@@ -16,6 +16,6 @@ def parse_frontmatter(content: str, source: Path) -> str:
     except ValueError:
         sys.exit(
             f"{source}: frontmatter is missing its closing ---.\n"
-            f"Run 'python3 tests/validate_structure.py' to diagnose."
+            f"Run 'uv run tests/validate_structure.py' to diagnose."
         )
     return content[end + 3:].lstrip()

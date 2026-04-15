@@ -17,5 +17,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
       - name: Validate skill.md structure
-        run: python3 tests/validate_structure.py --verbose
+        run: uv run tests/validate_structure.py --verbose
