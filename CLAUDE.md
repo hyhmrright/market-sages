@@ -46,9 +46,9 @@ uv run tests/validate_structure.py
 
 # Prompt 评估（需要 ANTHROPIC_API_KEY）
 export ANTHROPIC_API_KEY=sk-...
-uv run --with-requirements tests/requirements.txt tests/run_evals.py              # 全部 fixture
-uv run --with-requirements tests/requirements.txt tests/run_evals.py nvda_full_data  # 单个 fixture
-uv run --with-requirements tests/requirements.txt tests/run_evals.py --dry-run   # 不调用 API，仅打印提示词
+uv run tests/run_evals.py              # 全部 fixture
+uv run tests/run_evals.py nvda_full_data  # 单个 fixture
+uv run tests/run_evals.py --dry-run   # 不调用 API，仅打印提示词
 ```
 
 CI 在每次修改 `skill.md` 时自动运行结构校验（`.github/workflows/validate.yml`）。

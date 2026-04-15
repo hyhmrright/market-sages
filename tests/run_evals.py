@@ -1,17 +1,24 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "anthropic>=0.40.0",
+#   "pyyaml>=6.0",
+# ]
+# ///
 """
 Prompt evaluation runner for market-sages.
 Loads YAML fixtures, invokes Claude API with skill.md as system prompt,
 and checks assertions against the response.
 
 Requirements:
-    uv (deps resolved automatically from tests/requirements.txt)
+    uv (deps declared inline via PEP 723, resolved automatically)
 
 Usage:
     export ANTHROPIC_API_KEY=sk-...
-    uv run --with-requirements tests/requirements.txt tests/run_evals.py
-    uv run --with-requirements tests/requirements.txt tests/run_evals.py nvda_full_data
-    uv run --with-requirements tests/requirements.txt tests/run_evals.py --dry-run
+    uv run tests/run_evals.py
+    uv run tests/run_evals.py nvda_full_data
+    uv run tests/run_evals.py --dry-run
 """
 import argparse
 import re
@@ -27,7 +34,7 @@ try:
     import anthropic
     import yaml
 except ImportError:
-    sys.exit("Missing dependencies. Run: uv run --with-requirements tests/requirements.txt tests/run_evals.py")
+    sys.exit("Missing dependencies. Run: uv run tests/run_evals.py")
 
 from utils import parse_frontmatter
 

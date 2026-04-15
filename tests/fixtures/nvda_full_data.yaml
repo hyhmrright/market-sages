@@ -3,7 +3,7 @@
 # A forbidden_signal assertion passes for any signal except the one listed.
 #
 # Source: based on examples/nvidia-analysis.md (Q3 2024 data)
-# Run: uv run --with-requirements tests/requirements.txt tests/run_evals.py
+# Run: uv run tests/run_evals.py
 
 id: nvda_full_data
 description: >
