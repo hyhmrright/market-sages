@@ -223,8 +223,6 @@ def main() -> None:
 
     client = anthropic.Anthropic() if not args.dry_run else None
 
-    # Map fixture id → fixture dict for ordered printing after parallel execution
-    fixture_map = {f["id"]: f for f in fixtures}
     outcome: dict[str, tuple[bool, list[tuple[bool, str]]]] = {}
 
     with ThreadPoolExecutor(max_workers=len(fixtures)) as pool:

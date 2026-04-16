@@ -233,6 +233,44 @@ Which sages would be most concerned?
 
 ---
 
+## ❓ FAQ & Troubleshooting
+
+**Q: `/sages` command not found after installation**
+```bash
+# Re-copy and verify the file is in the right place
+cp skill.md ~/.claude/skills/market-sages.md
+ls ~/.claude/skills/market-sages.md
+```
+Then restart Claude Code and try again.
+
+**Q: The sages are using outdated data**
+Paste current financial data directly in your message — the sages will prioritize it over training knowledge:
+```
+/sages NVDA
+Revenue $60.9B, P/E 55x, Gross Margin 74.6%...
+```
+
+**Q: Can I use only a subset of sages?**
+Yes — use `@` to name them:
+```
+/sages AAPL @buffett @graham @burry
+```
+
+**Q: The analysis is in the wrong language**
+The skill auto-detects your input language. Write your prompt in the language you want the response in.
+
+**Q: How do I run the tests?**
+```bash
+# Structure validation (no API key needed)
+uv run tests/validate_structure.py --verbose
+
+# Prompt evaluation (requires ANTHROPIC_API_KEY)
+export ANTHROPIC_API_KEY=sk-...
+uv run tests/run_evals.py
+```
+
+---
+
 ## 🗂️ Project Structure
 
 ```

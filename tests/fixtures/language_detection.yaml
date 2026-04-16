@@ -1,0 +1,31 @@
+# Language detection test: Chinese input → Chinese output
+# Validates that the skill detects user language and responds entirely in that language.
+# Per skill.md: "Detect the user's language and respond entirely in that language.
+#                Sage names stay in their original form."
+
+id: language_detection
+description: >
+  When the user writes in Chinese, the skill must respond in Chinese.
+  Sage names (e.g. "Warren Buffett") remain in English per the skill rules.
+
+user_message: "分析苹果公司（AAPL）。请咨询所有13位智者。"
+
+assertions:
+  # Sage names must remain in English regardless of response language
+  - type: contains_text
+    value: "Warren Buffett"
+    description: "Sage names must stay in English even in Chinese-language responses"
+
+  # Chinese response indicators — investment terms that must appear in any stock analysis
+  - type: contains_text
+    value: "信号"
+    description: "Response must contain Chinese text ('信号' = signal)"
+
+  - type: contains_text
+    value: "风险"
+    description: "Response must contain Chinese text ('风险' = risk)"
+
+  # Disclaimer must appear (translated or not)
+  - type: contains_text
+    value: "DISCLAIMER"
+    description: "Disclaimer block must always be present"

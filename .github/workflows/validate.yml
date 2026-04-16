@@ -5,10 +5,18 @@ on:
     paths:
       - "skill.md"
       - "tests/validate_structure.py"
+      - ".claude-plugin/plugin.json"
+      - ".claude-plugin/marketplace.json"
+      - ".codex-plugin/plugin.json"
+      - "gemini-extension.json"
   pull_request:
     paths:
       - "skill.md"
       - "tests/validate_structure.py"
+      - ".claude-plugin/plugin.json"
+      - ".claude-plugin/marketplace.json"
+      - ".codex-plugin/plugin.json"
+      - "gemini-extension.json"
 
 jobs:
   validate:
@@ -22,3 +30,6 @@ jobs:
 
       - name: Validate skill.md structure
         run: uv run tests/validate_structure.py --verbose
+
+      - name: Lint tests/
+        run: uvx ruff check tests/
