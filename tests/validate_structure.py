@@ -2,7 +2,8 @@
 """
 Structural validator for skill.md — no API key required.
 Verifies frontmatter, sage count, required sections, QUICK COMMANDS completeness,
-and version consistency across all 5 manifest files.
+sage-list consistency across adapter docs, and version consistency across all 5
+manifest files.
 
 Usage:
     uv run tests/validate_structure.py
@@ -17,7 +18,10 @@ if sys.version_info < (3, 10):
 
 from pathlib import Path
 
+from utils import split_frontmatter
+
 SKILL_FILE = Path("skill.md")
+ADAPTER_FILES = [Path("AGENTS.md"), Path("GEMINI.md")]
 EXPECTED_SAGE_COUNT = 13
 REQUIRED_IN_EACH_SAGE = ["Signal rules:", "Speak in"]
 SIGNAL_DIRECTIONS = ["**Bullish**", "**Bearish**", "**Neutral**"]
@@ -32,16 +36,20 @@ VERSION_FILES: dict[str, tuple[str | int, ...]] = {
     "gemini-extension.json": ("version",),
 }
 
+ADAPTER_COUNCIL_RE = re.compile(
+    r"The council consists of:\s*(.+?)\.",
+    re.DOTALL,
+)
 
-def _get_frontmatter_block(content: str) -> tuple[str, list[str]]:
+
+def _frontmatter_or_errors(content: str) -> tuple[str, list[str]]:
     """Return (frontmatter_text, errors). Errors is non-empty if malformed."""
+    parts = split_frontmatter(content)
+    if parts is not None:
+        return parts[0], []
     if not content.startswith("---"):
         return "", ["  skill.md has no YAML frontmatter (must start with ---)"]
-    try:
-        end = content.index("---\n", 3)
-        return content[3:end], []
-    except ValueError:
-        return "", ["  skill.md frontmatter is not closed (missing closing ---)"]
+    return "", ["  skill.md frontmatter is not closed (missing closing ---)"]
 
 
 def _extract(data: dict, path: tuple[str | int, ...]) -> str:
@@ -58,7 +66,7 @@ def _extract(data: dict, path: tuple[str | int, ...]) -> str:
 
 def check_frontmatter(content: str) -> list[str]:
     """Verify YAML frontmatter exists and contains required fields."""
-    frontmatter, errors = _get_frontmatter_block(content)
+    frontmatter, errors = _frontmatter_or_errors(content)
     if errors:
         return errors
 
@@ -88,7 +96,36 @@ def parse_sage_blocks(content: str) -> list[tuple[str, str]]:
     return blocks
 
 
-def check_sage_count(blocks: list) -> list[str]:
+def skill_sage_names(blocks: list[tuple[str, str]]) -> list[str]:
+    """Extract just the sage proper name (e.g., 'Warren Buffett') from block titles.
+
+    Block titles look like: '1. Warren Buffett — The Oracle of Omaha'
+    """
+    names = []
+    for title, _ in blocks:
+        # strip leading 'N. ' and trailing ' — Tagline'
+        without_index = re.sub(r"^\d+\.\s*", "", title)
+        name = re.split(r"\s+[—–-]\s+", without_index, maxsplit=1)[0].strip()
+        names.append(name)
+    return names
+
+
+def adapter_sage_names(content: str) -> list[str] | None:
+    """Parse the sage list from an adapter doc. Return None if not found.
+
+    Expects a literal sentence of the form
+    ``The council consists of: <Name>, <Name>, ..., <Name>.``
+    — the phrase is a load-bearing anchor; editing it in AGENTS.md /
+    GEMINI.md will silently disable the drift check.
+    """
+    match = ADAPTER_COUNCIL_RE.search(content)
+    if not match:
+        return None
+    raw = re.sub(r"\s+", " ", match.group(1))
+    return [name.strip() for name in raw.split(",") if name.strip()]
+
+
+def check_sage_count(blocks: list[tuple[str, str]]) -> list[str]:
     if len(blocks) != EXPECTED_SAGE_COUNT:
         return [f"  Expected {EXPECTED_SAGE_COUNT} sages, found {len(blocks)}"]
     return []
@@ -109,7 +146,7 @@ def check_sage_sections(blocks: list[tuple[str, str]]) -> list[str]:
 
 def check_version_sync(content: str) -> list[str]:
     """Verify the 4 manifest files report the same version as skill.md frontmatter."""
-    frontmatter, errors = _get_frontmatter_block(content)
+    frontmatter, errors = _frontmatter_or_errors(content)
     if errors:
         return errors
 
@@ -136,6 +173,35 @@ def check_version_sync(content: str) -> list[str]:
                 f"  Version mismatch: skill.md={skill_version}, {path_str}={file_version}"
             )
 
+    return errors
+
+
+def check_adapter_sage_sync(blocks: list[tuple[str, str]]) -> list[str]:
+    """Verify AGENTS.md and GEMINI.md list the same 13 sages as skill.md, in order."""
+    expected = skill_sage_names(blocks)
+    errors = []
+    for path in ADAPTER_FILES:
+        if not path.exists():
+            errors.append(f"  Adapter file not found: {path}")
+            continue
+        names = adapter_sage_names(path.read_text())
+        if names is None:
+            errors.append(f"  {path}: 'The council consists of: ...' paragraph not found")
+            continue
+        if names != expected:
+            missing = sorted(set(expected) - set(names))
+            extra = sorted(set(names) - set(expected))
+            detail_bits = []
+            if missing:
+                detail_bits.append(f"missing {missing}")
+            if extra:
+                detail_bits.append(f"extra {extra}")
+            if not detail_bits:
+                detail_bits.append(f"order differs: {names}")
+            errors.append(
+                f"  {path} sage list drifted from skill.md — "
+                + "; ".join(detail_bits)
+            )
     return errors
 
 
@@ -177,6 +243,7 @@ def main() -> None:
     errors += check_version_sync(content)
     errors += check_sage_count(blocks)
     errors += check_sage_sections(blocks)
+    errors += check_adapter_sage_sync(blocks)
     errors += check_quick_commands(content)
 
     if errors:
@@ -187,7 +254,7 @@ def main() -> None:
 
     print(
         f"✅ Structure valid: {len(blocks)} sages · "
-        f"frontmatter OK · all sections present · all QUICK COMMANDS flags defined"
+        f"frontmatter OK · adapters in sync · all QUICK COMMANDS flags defined"
     )
 
 

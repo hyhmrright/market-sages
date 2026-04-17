@@ -4,7 +4,10 @@ on:
   push:
     paths:
       - "skill.md"
+      - "AGENTS.md"
+      - "GEMINI.md"
       - "tests/validate_structure.py"
+      - "tests/utils.py"
       - ".claude-plugin/plugin.json"
       - ".claude-plugin/marketplace.json"
       - ".codex-plugin/plugin.json"
@@ -12,7 +15,10 @@ on:
   pull_request:
     paths:
       - "skill.md"
+      - "AGENTS.md"
+      - "GEMINI.md"
       - "tests/validate_structure.py"
+      - "tests/utils.py"
       - ".claude-plugin/plugin.json"
       - ".claude-plugin/marketplace.json"
       - ".codex-plugin/plugin.json"

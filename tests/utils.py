@@ -3,6 +3,22 @@ import sys
 from pathlib import Path
 
 
+def split_frontmatter(content: str) -> tuple[str, str] | None:
+    """Return (frontmatter_text, body) or None if no well-formed frontmatter exists.
+
+    The frontmatter_text excludes the opening/closing `---` markers.
+    None is returned when content lacks the opening fence OR the opening
+    fence has no matching close. Callers decide how to handle either case.
+    """
+    if not content.startswith("---"):
+        return None
+    try:
+        end = content.index("---", 3)
+    except ValueError:
+        return None
+    return content[3:end], content[end + 3:].lstrip()
+
+
 def parse_frontmatter(content: str, source: Path) -> str:
     """Strip YAML frontmatter and return the body.
 
@@ -11,11 +27,10 @@ def parse_frontmatter(content: str, source: Path) -> str:
     """
     if not content.startswith("---"):
         return content
-    try:
-        end = content.index("---", 3)
-    except ValueError:
+    parts = split_frontmatter(content)
+    if parts is None:
         sys.exit(
             f"{source}: frontmatter is missing its closing ---.\n"
             f"Run 'uv run tests/validate_structure.py' to diagnose."
         )
-    return content[end + 3:].lstrip()
+    return parts[1]
