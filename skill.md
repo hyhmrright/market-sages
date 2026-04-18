@@ -4,7 +4,7 @@ description: >
   Summon 13 legendary investors — Warren Buffett, Charlie Munger, Benjamin Graham,
   Michael Burry, Nassim Taleb, Cathie Wood, and 8 more — to analyze any stock.
   No API keys. No local setup. Just paste a ticker and go.
-version: 0.3.1
+version: 0.3.2
 author: hyhmrright
 tags: [investing, finance, stock-analysis, warren-buffett, ai]
 ---

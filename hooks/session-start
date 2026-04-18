@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# SessionStart hook for market-sages plugin.
+# Copies commands/sages.md → ~/.claude/commands/ so users can type
+# `/sages AAPL` instead of the namespaced `/market-sages:sages AAPL`.
+# mtime-based sentinel skips the copy when the plugin hasn't changed.
+
+set -euo pipefail
+
+plugin_dir="$(cd "$(dirname "$0")/.." && pwd)"
+src="$plugin_dir/commands/sages.md"
+cmd_dir="$HOME/.claude/commands"
+sentinel="$cmd_dir/.market-sages-installed"
+
+if [ ! -f "$sentinel" ] || [ "$src" -nt "$sentinel" ]; then
+    mkdir -p "$cmd_dir"
+    cp "$src" "$cmd_dir/"
+    touch "$sentinel"
+fi
+
+printf '{"continue": true, "suppressOutput": true}\n'
+exit 0
